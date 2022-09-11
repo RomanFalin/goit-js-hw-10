@@ -36,8 +36,31 @@ function createCountryBox(country) {
         <p> <span>Population</span>: ${population} </p>
         <p> <span>Languages</span>: ${Object.values(languages).join(', ')} </p>
     </div>`;
-    countryBox.innerHTML = boxMarkup
-        ;
+    countryBox.innerHTML = boxMarkup;
 }
 
-function searchCountry()
+function searchCountry(evt) {
+    const onSearchCountry = evt.target.value;
+    clearInput();
+    if (!onSearchCountry) {
+        return;
+    }
+    fetchCountries(onSearchCountry)
+        .then(country => {
+            if (country.length > 10) {
+                Notify.info("Too many matches found. Please enter a more specific name.");
+            }
+            if (country.length === 1) {
+                createCountryBox(country[0]);
+            }
+            createCountryList(country)
+        })
+        .catch(error => {
+            Notify.failure("Oops, there is no country with that name.")
+        });
+}
+
+function clearInput() {
+    countryList.innerHTML = '';
+    countryBox.innerHTML = '';
+}
