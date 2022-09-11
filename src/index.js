@@ -49,9 +49,11 @@ function searchCountry(evt) {
         .then(country => {
             if (country.length > 10) {
                 Notify.info("Too many matches found. Please enter a more specific name.");
+                return;
             }
             if (country.length === 1) {
                 createCountryBox(country[0]);
+                return;
             }
             createCountryList(country)
         })
