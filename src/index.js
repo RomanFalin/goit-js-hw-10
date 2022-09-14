@@ -40,7 +40,7 @@ function createCountryBox(country) {
 }
 
 function searchCountry(evt) {
-    const onSearchCountry = evt.target.value;
+    const onSearchCountry = evt.target.value.trim();
     clearInput();
     if (!onSearchCountry) {
         return;
